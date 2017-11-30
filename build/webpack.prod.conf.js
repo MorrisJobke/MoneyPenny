@@ -111,7 +111,12 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
 
     new AppCachePlugin({
-      cache: ['/static/normalize.css'],
+      cache: [
+        '/static/normalize.css',
+        '/static/apple-touch-startup-image-750x1294.png',
+        '/static/logo-114.png',
+        '/static/logo-144.png',
+      ],
       output: 'app.appcache'
     }),
 

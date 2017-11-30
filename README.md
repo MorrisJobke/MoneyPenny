@@ -1,4 +1,6 @@
-# Money
+# MoneyPenny
+
+Dies ist eine Web App zum verwalten meiner Ausgaben und Einnahmen. Meine Motivationsschreiben ist unter [Motivation.md](Motivation.md) zu finden.
 
 ## Color palette
 
