@@ -1,80 +1,116 @@
 <template>
   <div>
-    <h3>Expenses</h3>
-    <ul>
-      <li v-for="expense in expenses">
-        {{ expense.category }} - {{ expense.price }}
-      </li>
-    </ul>
+    <h3>Ausgaben</h3>
+    <table v-for="month in months">
+      <tr>
+        <td class="month" colspan="4">{{ month.name }}</td>
+      </tr>
+      <tr v-for="(expense, index) in month.expenses" v-bind:title="expense.post_date | shortDate">
+        <td class="date">{{ expense.post_date | onlyDay }}.</td>
+        <td class="category"><i class="fa" v-bind:class="expense.category | mapCategory" v-bind:title="expense.category" aria-hidden="true"></i></td>
+        <td class="text">{{ expense.description }}</td>
+        <td class="amount">{{ expense.amount | euroize }}</td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
-import Vuex from 'vuex'
+import categories from '../categories'
+
+const mappedCategories = {}
+categories.forEach(category => {
+  mappedCategories[category.name] = category.icon
+})
+
+const monthNames = [
+  'Januar',
+  'Februar',
+  'März',
+  'April',
+  'Mai',
+  'Juni',
+  'Juli',
+  'August',
+  'September',
+  'Oktober',
+  'November',
+  'Dezember'
+]
 
 export default {
   name: 'ListExpenses',
-  computed: Vuex.mapState(['expenses'])
+  computed: {
+    months () {
+      let months = {}
+      this.$store.state.expenses.reverse().forEach(expense => {
+        const monthID = expense.post_date.substring(0, 7)
+        const year = expense.post_date.substring(0, 4)
+        const month = expense.post_date.substring(5, 7)
+
+        if (months[monthID] === undefined) {
+          months[monthID] = {
+            'name': monthNames[parseInt(month) - 1] + ' ' + year,
+            'expenses': []
+          }
+        }
+        months[monthID].expenses.push(expense)
+      })
+
+      let orderedMonths = {}
+      Object.keys(months).sort().reverse().forEach(key => {
+        orderedMonths[key] = months[key]
+      })
+
+      return orderedMonths
+    }
+  },
+  filters: {
+    euroize: value => {
+      return (value / 100).toFixed(2).toLocaleString('de-DE') + ' €'
+    },
+    mapCategory: value => {
+      if (mappedCategories[value]) {
+        return mappedCategories[value]
+      }
+      return ''
+    },
+    shortDate: value => {
+      return value.substring(0, 10)
+    },
+    onlyDay: value => {
+      return value.substring(8, 10)
+    }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-input[type="submit"],
-input.price {
-    width: 100%;
-    font-size: 24px;
-    font-weight: 300;
-    padding: 5px 5px;
-    border-radius: 3px;
-    border: 1px solid rgba(128, 128, 128, 0.5);
-    text-align: center;
-    background-color: white;
+td {
+  padding: 4px 0;
 }
-
-input[type="submit"]:hover,
-input[type="submit"]:active,
-input[type="submit"]:focus {
-    background-color: rgb(68, 137, 228);
-    color: white;
-    cursor: pointer;
-}
-
 .category {
-    padding: 5px 0;
+  width: 26px;
+  text-align: center;
 }
-
-/* hide radio buttons */
-.category input[type="radio"]{
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-    height: 0;
-    width: 0;
-    float: left;
+.date {
+  opacity: .3;
 }
-
-.category label {
-    width: 61px;
-    display: inline-block;
-    text-align: center;
-    background-color: rgba(214, 115, 13, 0.4);
-    border-radius: 2px;
-    cursor: pointer;
+.text {
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 172px;
+  max-width: 172px;
 }
-.category label .fa {
-    font-size: 30px;
-    line-height: 48px;
-    padding: 0 4px;
+.amount {
+  text-align: right;
+  min-width: 70px;
 }
-.category label.active {
-    background-color: rgba(214, 115, 13, 0.7);
-}
-
-.category .info {
-    font-size: 8px;
-    display: block;
-    padding: 0 2px 4px 2px;
+.month {
+  font-size: 10px;
+  font-weight: 600;
 }
 </style>

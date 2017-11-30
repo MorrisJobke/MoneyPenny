@@ -1,4 +1,34 @@
-# ghi
+# Money
+
+## Color palette
+
+http://paletton.com/#uid=70f0u0kllll2iNjbPtJuRcXU84-
+
+```css
+.color-primary-0 { color: #AA5939 }	/* Main Primary color */
+.color-primary-1 { color: #FFF2ED }
+.color-primary-2 { color: #EDAE95 }
+.color-primary-3 { color: #672004 }
+.color-primary-4 { color: #240A00 }
+
+.color-secondary-1-0 { color: #AA7939 }	/* Main Secondary color (1) */
+.color-secondary-1-1 { color: #FFF7ED }
+.color-secondary-1-2 { color: #EDC795 }
+.color-secondary-1-3 { color: #673D04 }
+.color-secondary-1-4 { color: #241500 }
+
+.color-secondary-2-0 { color: #29506D }	/* Main Secondary color (2) */
+.color-secondary-2-1 { color: #CAD2D8 }
+.color-secondary-2-2 { color: #648298 }
+.color-secondary-2-3 { color: #072842 }
+.color-secondary-2-4 { color: #000D17 }
+
+.color-complement-0 { color: #277553 }	/* Main Complement color */
+.color-complement-1 { color: #CDDDD6 }
+.color-complement-2 { color: #66A289 }
+.color-complement-3 { color: #034729 }
+.color-complement-4 { color: #00190E }
+```
 
 > A Vue.js project
 

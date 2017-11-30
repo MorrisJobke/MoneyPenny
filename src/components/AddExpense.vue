@@ -1,55 +1,63 @@
 <template>
   <div>
-    <h3>New expense</h3>
+    <h3>Neue Ausgabe</h3>
     <form v-on:submit.prevent="expense">
       <vue-numeric
         currency="€"
         separator=" "
-        v-model="price"
-        class="price"
+        v-model="amount"
+        class="amount"
       >
       </vue-numeric>
       <div class="category">
         <label
+          v-for="c in categories"
           class="radio"
-          v-bind:class="category == 'home' ? 'active' : ''">
-          <input type="radio" value="home" v-model="category"/>
-          <i class="fa fa-home" aria-hidden="true"></i>
-          <span class="info">Home</span>
-        </label>
-        <label
-          class="radio"
-          v-bind:class="category == 'transportation' ? 'active' : ''">
-          <input type="radio" value="transportation" v-model="category" id="abc"/>
-          <i class="fa fa-bus" aria-hidden="true"></i>
-          <span class="info">Transportation</span>
+          v-bind:class="category == c.name ? 'active' : ''">
+          <input type="radio" v-bind:value="c.name" v-model="category"/>
+          <i class="fa" v-bind:class="c.icon" aria-hidden="true"></i>
+          <span class="info">{{ c.name }}</span>
         </label>
       </div>
-      <input type="submit" value="Add expense"/>
+      <input type="submit" value="Ausgabe hinzufügen"/>
     </form>
   </div>
 </template>
 
 <script>
 import VueNumeric from 'vue-numeric'
+import categoryIcons from '../categories'
 
 export default {
   name: 'AddExpense',
   data () {
     return {
-      price: 1000,
-      category: 'transportation'
+      amount: 0,
+      category: 'Haushalt'
+    }
+  },
+  computed: {
+    categories: () => {
+      return categoryIcons
+        .filter(
+          c => !c.name.includes(' > ')
+        )
     }
   },
   components: { VueNumeric },
   methods: {
     expense: function (event) {
+      if (this.amount <= 0) {
+        return;
+      }
       this.$store.commit('addExpense', {
-        price: this.price,
-        category: this.category
+        amount: (-1 * this.amount * 100).toFixed(0),
+        category: this.category,
+        post_date: '2017-01-10 16:00:00',
+        enter_date: '2017-01-10 16:00:00',
+        description: this.category
       })
-      this.price = 0
-      this.category = 'home'
+      this.amount = 0
     }
   }
 }
@@ -58,8 +66,17 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+/**
+
+    background-color: #AA5939;
+    background-color: #AA7939;
+    background-color: #29506D;
+    background-color: #277553;
+
+ */
+
 input[type="submit"],
-input.price {
+input.amount {
     width: 100%;
     font-size: 24px;
     font-weight: 300;
@@ -96,9 +113,12 @@ input[type="submit"]:focus {
     width: 61px;
     display: inline-block;
     text-align: center;
-    background-color: rgba(214, 115, 13, 0.4);
+    color: white;
+    background-color: #66A289;
     border-radius: 2px;
     cursor: pointer;
+    margin: 10px 7px;
+    user-select: none;
 }
 .category label .fa {
     font-size: 30px;
@@ -106,12 +126,13 @@ input[type="submit"]:focus {
     padding: 0 4px;
 }
 .category label.active {
-    background-color: rgba(214, 115, 13, 0.7);
+    background-color: #277553;
 }
 
 .category .info {
     font-size: 8px;
     display: block;
     padding: 0 2px 4px 2px;
+    font-weight: 800;
 }
 </style>
