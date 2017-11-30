@@ -87,6 +87,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+div {
+  color: white;
+}
 td {
   padding: 4px 0;
 }
@@ -95,7 +98,7 @@ td {
   text-align: center;
 }
 .date {
-  opacity: .3;
+  opacity: .6;
 }
 .text {
   text-align: left;

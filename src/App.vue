@@ -11,6 +11,9 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: #66A289;
+}
 #app {
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
@@ -25,6 +28,6 @@ export default {
 }
 hr {
     border:none;
-    border-bottom: 1px solid rgba(128,128,128,.5);
+    border-bottom: 1px solid rgba(250, 250, 250, 0.5);
 }
 </style>

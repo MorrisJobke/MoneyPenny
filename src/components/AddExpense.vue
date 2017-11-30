@@ -48,7 +48,7 @@ export default {
   methods: {
     expense: function (event) {
       if (this.amount <= 0) {
-        return;
+        return
       }
       this.$store.commit('addExpense', {
         amount: (-1 * this.amount * 100).toFixed(0),
@@ -66,17 +66,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-/**
-
-    background-color: #AA5939;
-    background-color: #AA7939;
-    background-color: #29506D;
-    background-color: #277553;
-
- */
+h3 {
+  color: white;
+}
 
 input[type="submit"],
 input.amount {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     width: 100%;
     font-size: 24px;
     font-weight: 300;
