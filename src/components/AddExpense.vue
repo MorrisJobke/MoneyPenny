@@ -77,18 +77,20 @@ input.amount {
     appearance: none;
     width: 100%;
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 600;
     padding: 5px 5px;
     border-radius: 3px;
-    border: 1px solid rgba(128, 128, 128, 0.5);
+    border: 1px solid white;
     text-align: center;
-    background-color: white;
+    background: rgba(102, 162, 137, 0.67);
+    color: white;
+    outline: none;
 }
 
 input[type="submit"]:hover,
 input[type="submit"]:active,
 input[type="submit"]:focus {
-    background-color: rgb(68, 137, 228);
+    background-color: rgba(3, 71, 41, .5);
     color: white;
     cursor: pointer;
 }
@@ -112,7 +114,6 @@ input[type="submit"]:focus {
     display: inline-block;
     text-align: center;
     color: white;
-    background-color: #66A289;
     border-radius: 2px;
     cursor: pointer;
     margin: 10px 7px;
@@ -124,7 +125,7 @@ input[type="submit"]:focus {
     padding: 0 4px;
 }
 .category label.active {
-    background-color: #277553;
+    background-color: rgba(3, 71, 41, .5);
 }
 
 .category .info {
@@ -132,5 +133,11 @@ input[type="submit"]:focus {
     display: block;
     padding: 0 2px 4px 2px;
     font-weight: 800;
+}
+.fa {
+  text-shadow: 2px 2px #277553;
+}
+span {
+  text-shadow: 1px 1px #277553;
 }
 </style>
